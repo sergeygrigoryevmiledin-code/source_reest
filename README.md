@@ -1,2 +1,66 @@
-# source_reest
-Настольная Windows-утилита для автоматизации удалённой очистки реестра/Is a Windows desktop tool for automated remote registry cleanup
+**История проекта** 
+Эта утилита была создана во время дебага миграции ESET EDR Protect.
+
+Ранее на компьютерах пользователей был установлен ESET Management Agent, настроенный на Сервер №1.
+После закрытия подписки глобальным провайдером понадобилось перевести все рабочие станции на Сервер №2.
+
+**Проблема:** в этом сценарии нет прямого штатного инструмента для “перенаправления” уже установленного агента на новый сервер. Фактически требовалась переустановка агента.
+
+В последний день миграции старый агент удалось удалить удаленно на всех хостах. Но установка нового агента через GPO и локально продолжала завершаться неуспешно: инсталлятор видел остатки старых записей в реестре и блокировал установку.
+
+Когда удалось точно определить, где находится этот “мусор” в реестре, стало понятно, что вручную это не очистить в большой сети.
+Так появилась эта утилита.
+
+
+**Что делает утилита**
+Утилита автоматизирует удаленную очистку реестра в масштабе сети и позволяет:
+
+**задавать цель как:**
+* один IP,
+* диапазон IP,
+* подсеть;
+* искать в нужной ветке реестра по заданному параметру (например, ProductName);
+* находить подветки, где этот параметр присутствует;
+* удалять целиком найденную подветку;
+* выполнять финальную проверку результата.
+
+**Утилита помогает:**
+- искать записи по ProductName в заданной ветке реестра;
+- удалять найденные подветки целиком;
+- выполнять проверку результата на множестве хостов.
+
+**Итог:** инструмент помогает удалить остатки старого ESET Management Agent в реестре, чтобы корректно установить нового агента.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+**Dept_IT is a Windows desktop tool for automated remote registry cleanup.**
+It was developed during an ESET migration case where new agent deployment failed due to leftover registry artifacts from a previous Management Agent installation.
+
+The utility helps you:
+
+search by ProductName in a target registry branch;
+remove matching subkeys completely;
+verify cleanup results across many hosts.
+
+**Features**
+Target modes:
+- single IP
+- IP range
+- subnet (including /16)
+- 
+**Search options:**
+- configurable registry path
+- ProductName (or custom target name)
+**Credentials:**
+- current account
+- domain / username / password
+**Processing:**
+- 2-pass flow
+- stop on NOT_FOUND (as configured)
+- final verification
+**UI:**
+- results table
+- colored execution log
+- Stop / Copy Log / Open Logs Folder actions
+
+
